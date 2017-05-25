@@ -1,0 +1,16 @@
+
+A visualization that addresses the plight of refugees / ongoing refugee crisis in Europe.
+http://popstats.unhcr.org/en/
+http://data.worldbank.org/indicator/SM.POP.REFG
+
+Used immigration data 2009-2015 to Europe
+python q6.py gives q6.json from csv
+
+Sunburst - By Year, Origin, Destination
+---------------------------------------
+Sunburst to depict year,destination,origin in one Interactive graphic
+Choose year or full range to show increased immigration in 2015
+Zoom in on any segment to get details
+Radio button to make the sunburst be year->destination->origin or year->origin->destination 
+Tool tip gives year,origin,destination,refugeeCount
+

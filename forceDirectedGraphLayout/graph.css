@@ -1,0 +1,35 @@
+.nodecircle {
+    stroke-width: 2px;
+}
+
+.link {
+    stroke: #999;
+    stroke-opacity: .6;
+}
+
+.nodegroup {
+}
+
+.labeltext {
+    font-family:sans-serif;
+    font-size: 12px;
+    text-transform:capitalize;
+    fill: black;
+    font-weight:lighter;
+    pointer-events: none;
+}
+
+.fixed {
+    fill:black;
+}
+
+
+.d3-tip {
+    line-height: 1;
+    font-family:sans-serif;
+    font-weight: normal;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}

@@ -1,0 +1,62 @@
+body {
+}
+
+h1 {
+    color: navy;
+    margin-left: 20px;
+}
+
+svg.scatter {
+    width: 1100px;
+    height: 650px;
+    stroke: black;
+    fill:none;
+    stroke-width:1px;
+    border:1px solid #000000;
+}
+
+.axis {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+
+text.axislabel {
+    font-family: sans-serif;
+    font-size: 14px;
+  //  text-transform:capitalize;
+    fill: rgba(0,0,255,1);
+}
+
+.legendSymbol rect {
+    fill:white;
+    stroke:black;
+    opacity:0.5;
+    stroke-width:2;
+    font-size:12px;
+    height:100;
+    width:100;
+}
+
+h2 {
+    margin-left:400px;
+}
+
+div.spacer{
+    width:100%;
+    height:100px;
+}
+
+text.titletext {
+    font-family: sans-serif;
+    text-decoration: none;
+    font-size: 22px;
+    text-anchor: middle;
+    font-weight: bold;
+    text-align:center;
+    align:center;
+    fill:black;
+}

@@ -1,0 +1,111 @@
+body {
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight:lighter;   
+}
+
+h1 {
+    color: navy;
+    margin-left: 20px;
+}
+
+.g {
+}
+
+#yearselect {
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+svg.barsvg {
+    width: 1000px;
+    height: 400px;
+    stroke: black;
+    fill:none;
+    stroke-width:1px;
+    stroke-width:1px;
+    font-family:sans-serif;
+    font-weight:lighter;
+    //border:1px solid #000000;
+}
+
+svg.barsvglarge {
+    width: 1000px;
+    height: 600px;
+    stroke: black;
+    fill:none;
+    stroke-width:1px;
+    font-family:sans-serif;
+    font-weight:lighter;
+    //border:1px solid #000000;
+}
+
+.axis {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight:lighter;
+}
+
+
+text.axislabel {
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight:lighter;
+    text-transform:capitalize;
+    fill: rgba(0,0,255,1);
+}
+
+.legendlabel {
+    font-family: sans-serif;
+    font-size: 12px;
+    text-transform:capitalize;
+    fill: black;
+    font-weight:lighter;
+}
+
+
+.newlegend  {
+    fill:white;
+    stroke:black;
+    opacity:0.5;
+    stroke-width:2;
+    font-size:12px;
+    height:100;
+    width:100;
+}
+
+
+text.titletext {
+    font-family: sans-serif;
+    text-decoration: none;
+    font-size: 20px;
+    text-anchor: middle;
+    font-weight: lighter;
+    //stroke-width:1px;
+    fill:black;
+}
+
+rect.bars {
+    shape-rendering: crispEdges;
+    stroke-width :0px
+}
+
+rect.bars:hover {
+    fill:brown;
+}
+
+div.spacer {
+}
+
+.d3-tip {
+    line-height: 1;
+    font-family:sans-serif;
+    font-weight: normal;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="graph.css">
+    <script type="text/javascript" src="../lib/d3/d3.v3.js"></script>
+    <script type="text/javascript" src="../lib/d3/d3.tip.js"></script>
+  </header>
+
+  <body>
+    <head>
+      <title>Who Played With Whom</title>
+    </head>
+
+    <script>
+      
+      //Size of region to render on
+      var width = 1600,
+      height = 900;
+
+      //D3 force directed layout
+      //Try playing with the charge and link distance
+      var force = d3.layout.force()
+      .charge(-100)
+      .linkDistance(height/5)
+      .gravity(.05)
+      .charge(-1*height/4)
+      .linkStrength(0.1)
+      .friction(0.9)
+      .theta(0.8)
+      .alpha(0.1)
+      .size([width, height]);
+
+      //Add our canvas
+      var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+      //Select the data ;)
+      d3.json("afc.json", function(error, graph) {
+      
+      force
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+      //Add the links
+      var link = svg.selectAll(".link")
+      .data(graph.links)
+      .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+      
+      /*
+      BEGIN
+      Q4 a
+      Add a group for each nodeand then add the circle and text to it
+      so label is visible and can move with the node
+      */
+
+
+      // add a group to contain circle and text
+      var nodeGroup = svg.selectAll("g.node")
+      .data(graph.nodes)
+      .enter()
+      .append("g")
+      .attr("class","nodegroup")
+      .call(force.drag);
+
+      // add circle to group
+      var node = nodeGroup
+      .append("circle")
+      .attr("class","nodecircle")
+      .attr("r", 5)
+      .text(function(d){return d.name;});
+
+      // add text to group
+      nodeGroup
+      .append("text")
+      .style("text-anchor", "right")
+      .text(function (d) {return d.name;})
+      .attr("class","labeltext");
+
+      /*
+      END
+      Q4 a.
+      */
+
+
+      
+
+      /*
+      BEGIN
+      Q4 b
+      Get the distinct positions for players
+      create a ordinal color scale with a colorbrewer colorblind palette
+      use them to color the circle
+      */
+      
+      var unique = {};
+      var positions = [];
+      for( var i in graph.nodes ){       
+      if( typeof(unique[graph.nodes[i].position]) == "undefined"){
+      positions.push(graph.nodes[i].position);
+      }
+      }
+
+      var colorbrewerRdYlBu10 = ['rgb(165,0,38)',
+      'rgb(215,48,39)',
+      'rgb(244,109,67)',
+      'rgb(253,174,97)',
+      'rgb(254,224,144)',
+      'rgb(224,243,248)',
+      'rgb(171,217,233)',
+      'rgb(116,173,209)',
+      'rgb(69,117,180)',
+      'rgb(49,54,149)'];
+      
+      var posColor = d3.scale.ordinal()
+      .domain(positions)
+      .range(colorbrewerRdYlBu10);
+
+      node
+      .attr("fill",function(d){ return posColor(d.position);})
+      .attr("stroke",function(d){ return posColor(d.position);});
+      
+      /*
+      END
+      Q4 b
+      */
+
+
+      /*
+      BEGIN
+      Q4 c i
+      Get the range of goals for nodes
+      create a linear scale 
+      use them to set radius the circle
+      */
+      
+      var goalLScale = d3.scale.linear()
+      .domain([d3.min(graph.nodes,function(d){return d.goals+1;}),
+      d3.max(graph.nodes,function(d){return d.goals+1;})])
+      .range([2,50]);
+      
+      node.attr("r",function(d){return goalLScale(d.goals+1);});
+      
+      /*
+      END
+      Q4 c i
+      */
+
+
+      
+      /*
+      BEGIN
+      Q4 c ii
+      Get the range of goals for nodes
+      create a linear scale 
+      use them to set radius the circle
+      */
+
+      var goalQScale = d3.scale.linear()
+      .domain([d3.min(graph.nodes,function(d){return Math.sqrt(d.goals+1);}),
+      d3.max(graph.nodes,function(d){return Math.sqrt(d.goals+1);})])
+      .range([2,50]);
+      node.attr("r",function(d){return goalQScale(Math.sqrt(d.goals+1));});
+      
+
+      /*
+      //This is squareroot scale - so not used
+      
+      var goalQScale = d3.scale.sqrt()
+      .domain([d3.min(graph.nodes,function(d){return d.goals+1;}),
+      d3.max(graph.nodes,function(d){return d.goals+1;})])
+      .range([2,50]);
+      
+      node.attr("r",function(d){return goalQScale(d.goals+1);});
+      */
+      
+      /*
+      END
+      Q4 c ii
+      */
+      
+
+
+      /*
+      BEGIN
+      Q4 d
+      Set text label only if appearance > 250
+      */
+      
+      nodeGroup
+      .selectAll("text")
+      .attr("visibility",function(d){ if ( d.appearances > 250 ) { return "visible";} else {return "hidden";} });
+      //.attr("display",function(d){ if ( d.appearances > 250 ) { return "inline";} else {return "none";} });
+      
+      /*
+      END
+      Q4 d
+      */
+
+
+      /*
+      BEGIN
+      Q4 e
+      on double click for node toggle boolean property fixed
+      */
+
+      node.on("dblclick", dblclick);
+      
+      function dblclick(d) {
+      d.fixed = d.fixed?false:true;
+      if ( d.fixed ) {
+      d3.select(this).attr("stroke","black");
+      } else {
+      d3.select(this).attr("stroke",function(d){ return posColor(d.position);});
+      }
+      }
+
+      /*
+      END
+      Q4 e
+      */
+
+
+      /*
+      BEGIN
+      Q4 f
+      Use tool tip using d3
+      */
+
+      /* Initialize tooltip */
+      tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.name+", "+d.position+", "+d.appearances; });
+
+      /* Invoke the tip in the context of your visualization */
+      svg.call(tip)
+
+      /* add tip as mouseover events on node */
+      node
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+      
+      /*
+      END
+      Q4 f
+      */
+      
+      
+      //Update stuff for animation:
+      //   This takes the physics simulation for the force directed graph and
+      //   sets the location of the nodes and edges to the new positions
+      force.on("tick",tick);
+      
+      function tick() {
+      
+      link
+      .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+      /*
+      BEGIN
+      Q4 a
+      Add a group for each nodeand then add the circle and text to it
+      so label is visible and can move with the node
+      */
+      nodeGroup.attr("transform",function(d){return "translate("+d.x+","+d.y+")";});
+      /*
+      END
+      Q4 a.
+      */
+      }
+      });
+      
+    </script>
+  </body>
+</html>

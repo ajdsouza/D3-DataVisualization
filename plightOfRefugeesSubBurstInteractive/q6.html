@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <header>
+    <meta charset="utf-8"></meta>
+    <script type="text/javascript" src="../lib/d3/d3.v3.js"></script>
+    <script type="text/javascript" src="../lib/d3/d3.tip.js"></script>
+    <script type="text/javascript" src="q6.js"></script>
+    <link rel="stylesheet" type="text/css" href="q6.css">
+    <title>Q6 - Refugee Crisis </title>
+  </header>
+  <body>
+    
+    <h1 class="graphtitle"></h1>
+	 
+    <div id="filter">
+      <b>Choose Refugee view : </b>
+      <form id="radiobutton">
+	<label><input type="radio" name="mode" value="destination" checked>By Destination Country</label>
+	<label><input type="radio" name="mode" value="origin">by Origin Country</label>
+      </form>
+      <b>Choose A Year:</b>
+      <select id="yearselect" name="year-list" title="Year"></select>
+    </div>
+    <div>
+      <b> Double click to drill down into a slice or to zoom out of a view</b>
+      <br>
+      <b> Mouse over to see details of any slice</b>
+    </div>
+
+     <script type="text/javascript">
+
+      var svgTPadding = 20;
+      var svgBPadding = 20;
+      var svgLPadding = 20;
+      var svgRPadding = 20;
+      
+
+      var yLabelMap = {
+      "Iran (Islamic Rep. of)":"Iran",
+      "Serbia and Kosovo (S/RES/1244 (1999))":"Serbia and Kosovo"};
+      
+      var graphConfig = {
+      yField:"Country",
+      xField:"Origin",
+      zField:"Year",
+      vField:"Value",
+      yLabel:"Country",
+      xLabel:"Origin",
+      zLabel:"Year",
+      vLabel:"Refugees",
+      title:"Q6. European Refugees Crisis",
+      yMap:yLabelMap
+      ,legend:false
+      };
+
+      var jsonData;
+      var svg;
+      var svg2;
+      var g;
+      var partition;
+      var arc;
+      var sunb;
+      var xScale;
+      var yScale;
+      var zScale;
+      var radius;
+      var rootNode;
+      var dropDown;
+      //var radiobutton;
+      var tip;
+      var filterYear;
+      var filteryearLabel;
+      var rootLabel;
+      var sunType;
+      var sunTypeLabel;
+      
+      configureInitial();
+      
+      configureSunBurstSVG();
+           
+      // Read the file and plot the graph in the callback
+      jsonData = fileReadAndPlot("q6.json");
+      
+      
+    </script>
+
+
+    `
+  </body>
+</html>

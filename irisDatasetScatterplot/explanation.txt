@@ -1,0 +1,6 @@
+Q1 A)
+The 2nd plot of Petal Length Vs Petal Width seperates the 3 classes very clearly.The first plot of Speal Length/Sepal Width while it separates the class setosa, the versicolor and virgnica classes overlap slightly.
+
+
+Q1 C)
+Plotted graphs in linear,log, powers and qrt scales. Log scale gives a good presentation of the boundaries around the 3 classes of data in terms of their seperation and overlap. The other scales, especially linear scale depicts the data giving more details of the points of data.

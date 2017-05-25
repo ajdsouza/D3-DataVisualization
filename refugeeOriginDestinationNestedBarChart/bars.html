@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <header>
+    <meta charset="utf-8"></meta>
+    <script type="text/javascript" src="../lib/d3/d3.v3.js"></script>
+    <script type="text/javascript" src="../lib/d3/d3.tip.js"></script>
+    <script type="text/javascript" src="bars.js"></script>
+    <link rel="stylesheet" type="text/css" href="bars.css">
+    <title>Q5 - Bars </title>
+  </header>
+  <body>
+    <div id="filter">
+      <b>Year:</b>
+    </div>
+    <script type="text/javascript">
+
+      var svgTPadding = 60;
+      var svgBPadding = 60;
+      var svgLPadding = 140;
+      var svgRPadding = 20;
+
+      var yLabelMap = {
+      "Iran (Islamic Rep. of)":"Iran",
+      "Serbia and Kosovo (S/RES/1244 (1999))":"Serbia and Kosovo"};
+      
+      var graphConfig1 = {
+      xField:"Refugees (incl. refugee-like situations)",
+      yField:"Origin",
+      zField:"Year",
+      xLabel:"# Refugees",
+      yLabel:"Country Origin",
+      zLabel:"Year",
+      title:"Q5 c. Refugees by Origin",
+      xMap:undefined,
+      yMap:yLabelMap
+      };
+      
+      var countryChoice = 
+      {
+      "Germany":1,
+      "France":1,
+      "Sweden":1,
+      "Denmark":1,
+      "Austria":1
+      };
+
+      var graphConfig2 = {
+      xField:"Refugees (incl. refugee-like situations)",
+      yField:"Origin",
+      yField2:"Country / territory of asylum/residence",
+      zField:"Year",
+      xLabel:"# Refugees",
+      yLabel:"Country Origin",
+      y2Label:"",
+      zLabel:"Year",
+      title:"Q5 c. Refugees by Destination",
+      xMap:undefined,
+      yMap:yLabelMap,
+      yField2Choice:countryChoice,
+      legend:true
+      };
+      
+      plotBars("poc.json","q5");
+
+    </script>
+
+  </body>
+</html>
